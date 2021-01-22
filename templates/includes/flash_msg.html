@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<!-- Popup Messages -->
+{% if messages %}
+    {% for msg in messages %}
+        <div class="alert alert-dark alert-dismissible fade show" role="alert">
+            <strong> {{ msg }} </strong>
+            <button type="button" class="btn-close close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
