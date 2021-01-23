@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm, LoginUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from .decorators import unauthenticated_user
 
 
 # Create your views here.
-
+@unauthenticated_user
 def userRegistration(request):
     form = CreateUserForm()
     if request.method == 'POST':
@@ -29,7 +30,7 @@ def userRegistration(request):
     return render(request, 'authentication/register.html', context)
 
 
-
+@unauthenticated_user
 def userLogin(request):
     form = LoginUserForm()
     if request.method == 'POST':
