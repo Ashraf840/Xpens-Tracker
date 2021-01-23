@@ -28,8 +28,10 @@
                         <!-- form goes here -->
                         <div class="form-group p-3">
                             <div class = "form-row d-flex justify-content-center">
-                                <div class = "col-sm-3">
-                                    {{ form.username.label }}:
+                                <div class = "col-sm-3 position-relative">
+                                    <span class="position-absolute top-50 start-0 translate-middle-y">
+                                        {{ form.username.label }}:
+                                    </span>
                                 </div>
                                 <div class = "col-sm-9 text-center">
                                     {{ form.username }}
@@ -38,8 +40,10 @@
                         </div>
                         <div class="form-group p-3">
                             <div class = "form-row d-flex justify-content-center">
-                                <div class = "col-sm-3">
-                                    {{ form.email.label }}:
+                                <div class = "col-sm-3 position-relative">
+                                    <span class="position-absolute top-50 start-0 translate-middle-y">
+                                        {{ form.email.label }}:
+                                    </span>
                                 </div>
                                 <div class = "col-sm-9 text-center">
                                     {{ form.email }}
@@ -48,8 +52,10 @@
                         </div>
                         <div class="form-group p-3">
                             <div class = "form-row d-flex justify-content-center">
-                                <div class = "col-sm-3">
-                                    {{ form.password1.label }}:
+                                <div class = "col-sm-3 position-relative">
+                                    <span class="position-absolute top-50 start-0 translate-middle-y">
+                                        {{ form.password1.label }}:
+                                    </span>
                                 </div>
                                 <div class = "col-sm-9 text-center">
                                     {{ form.password1 }}
@@ -58,8 +64,10 @@
                         </div>
                         <div class="form-group p-3">
                             <div class = "form-row d-flex justify-content-center">
-                                <div class = "col-sm-3">
-                                    {{ form.password2.label }}:
+                                <div class = "col-sm-3 position-relative">
+                                    <span class="position-absolute top-50 start-0 translate-middle-y">
+                                        {{ form.password2.label }}:
+                                    </span>
                                 </div>
                                 <div class = "col-sm-9 text-center">
                                     {{ form.password2 }}
@@ -67,7 +75,14 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-info mt-5" id="send_btn">Register</button>
+                        <div class="form-group p-1 bg-info rounded mx-3 mt-4">
+                            <div class = "form-row d-flex justify-content-center">
+                                <div class="col-sm d-grid gap-2">
+                                    <button type="submit" class="btn btn-default" id="send_btn">Register</button>
+                                </div>
+                            </div>
+                        </div>
+
                         
                         <br/><br/><br/>
                         <a class="text-danger" href="{% url 'expensesapp:home' %}">Go to Dashboard</a>
