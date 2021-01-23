@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-    <div class="position-sticky pt-3">
+    <div class="position-sticky pt-3" style="position: relative;">
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'expensesapp:home' %}">
@@ -45,10 +45,22 @@
       </h6>
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'authenticationApp:register' %}">
+          <a class="nav-link text-danger" href="{% url 'authenticationApp:register' %}">
             Register
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="{% url 'authenticationApp:login' %}">
+            Login
           </a>
         </li>
       </ul>
     </div>
-  </nav>
+    <footer class="footer bg-light" style="position: absolute; bottom: 30px;">
+      <div class="container">
+        {% if user.is_authenticated %}
+          <span>Logged in as <b>{{ user.username }}</b> </span>
+        {% endif %}
+      </div>
+    </footer>
+</nav>
