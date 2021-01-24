@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 
 {%  extends 'base_auth.html' %}
+{% load static %}
 
 {% block title %} {{ title }} {% endblock %}
 
+{% block stylesheet %}
+
+<style>
+    #loader, #loader2 {
+      border: 3px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 3px solid #313c44;
+      width: 20px;
+      height: 20px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
+
+{% endblock %}
+
+
 
 {% block content %}
-
 
     <div class="row">
         <div class="col-md-4"></div>
@@ -37,6 +65,22 @@
                                     {{ form.username }}
                                 </div>
                             </div>
+                            <!-- Invalid-Feedback-username -->
+                            <div class="invalid-feedback" id="invalid-feedback" style="display: block; margin-bottom: -20px;"></div>
+                            <!-- Feedback-Indicator -->
+                            <div class="form-row d-flex justify-content-center">
+                                <div class="col-sm-1 position-relative">
+                                    <div style="position:absolute; bottom: -5px; right: 5px;">
+                                        <p class="text-sm mt-4" id="loader" style="display: none; margin-bottom: 0px;"></p>
+                                    </div>
+                                    <div style="position:absolute; bottom: -5px; right: 5px;">
+                                        <span class="text-sm mt-4" id="sign" style="display: none; margin-bottom: 3px; font-size: 20px; color: #43b469;">✓</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-11">
+                                    <p class="text-sm mt-4" id="usrnameLoadingIndic" style="display: none; margin-bottom: 0px; color: #356e48;">Username is available</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group p-3">
                             <div class = "form-row d-flex justify-content-center">
@@ -47,6 +91,22 @@
                                 </div>
                                 <div class = "col-sm-9 text-center">
                                     {{ form.email }}
+                                </div>
+                            </div>
+                            <!-- Invalid-Feedback-email -->
+                            <div class="invalid-feedback" id="invalid-feedback2" style="display: block; margin-bottom: -20px;"></div>
+                            <!-- Feedback-Indicator -->
+                            <div class="form-row d-flex justify-content-center">
+                                <div class="col-sm-1 position-relative">
+                                    <div style="position:absolute; bottom: -5px; right: 5px;">
+                                        <p class="text-sm mt-4" id="loader2" style="display: none; margin-bottom: 0px;"></p>
+                                    </div>
+                                    <div style="position:absolute; bottom: -5px; right: 5px;">
+                                        <span class="text-sm mt-4" id="sign2" style="display: none; margin-bottom: 3px; font-size: 20px; color: #43b469;">✓</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-11">
+                                    <p class="text-sm mt-4" id="emailLoadingIndic" style="display: none; margin-bottom: 0px; color: #356e48;">Email is valid</p>
                                 </div>
                             </div>
                         </div>
@@ -99,5 +159,12 @@
         <div class="col-md-4"></div>
     </div>
 
+{% endblock %}
+
+
+
+{% block js %} 
+
+    <script src="{% static 'js/register.js' %}"></script>
 
 {% endblock %}
