@@ -22,6 +22,19 @@ from django.urls import reverse
 from .utils import token_generator
 from django.views import View
 
+# Speeding up Django Email Sending using Multithreading
+import threading
+
+
+# Multi-threading
+class EmailThread(threading.Thread):
+    def __init__(self, msg):
+        self.email = msg
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.email.send()
+
 
 # Create your views here.
 @unauthenticated_user
@@ -54,7 +67,8 @@ def userRegistration(request):
 
             msg = EmailMultiAlternatives(email_subject, text_content, from_email, [to_email])
             msg.attach_alternative(html_content, "text/html")
-            msg.send()
+            # msg.send()
+            EmailThread(msg).start()    # sends email fast
 
 
             messages.success(
