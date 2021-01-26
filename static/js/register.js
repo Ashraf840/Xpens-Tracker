@@ -14,6 +14,8 @@ const emailLoadingSpinner = document.getElementById('loader2');
 const emailCheckMark = document.getElementById('sign2');
 const emailLoadingIndicator = document.getElementById('emailLoadingIndic');
 
+// fetch the register btn by the ID
+const registerBtn = document.getElementById('send_btn');
 
 
 
@@ -49,6 +51,10 @@ usernameInput.addEventListener('keyup', (e) => {
             // console.log(data);
 
             if (data.username_error) {
+                registerBtn.disabled = true
+                registerBtn.style.background = '#58646d'
+                registerBtn.style.color = '#8a8a8a'
+
                 // if found error then hide the loader & indicator
                 usrnameLoadingSpinner.style.display = 'none';
                 usrnameCheckMark.style.display = 'none';
@@ -57,6 +63,10 @@ usernameInput.addEventListener('keyup', (e) => {
                 usernameInput.classList.add("is-invalid");      // Highlights the input field as red-squared box (Bootstrap class)
                 feedbackField.innerHTML = `<p><b> ${data.username_error} </b></p>`;
             }else{
+                registerBtn.disabled = false
+                registerBtn.style.background = '#313c44'
+                registerBtn.style.color = '#f3f3f3'
+
                 usernameInput.classList.remove("is-invalid");
                 feedbackField.innerHTML = '';
 
@@ -108,6 +118,10 @@ emailInput.addEventListener('keyup', (e) => {
             // console.log(data);
 
             if (data.email_error) {
+                registerBtn.disabled = true
+                registerBtn.style.background = '#58646d'
+                registerBtn.style.color = '#8a8a8a'
+
                 // if found error then hide the loader & indicator
                 emailLoadingSpinner.style.display = 'none';
                 emailCheckMark.style.display = 'none';
@@ -116,6 +130,10 @@ emailInput.addEventListener('keyup', (e) => {
                 emailInput.classList.add("is-invalid");      // Highlights the input field as red-squared box (Bootstrap class)
                 feedbackField2.innerHTML = `<p><b> ${data.email_error} </b></p>`;
             }else{
+                registerBtn.disabled = false
+                registerBtn.style.background = '#313c44'
+                registerBtn.style.color = '#f3f3f3'
+                
                 // if found valid then display the indicator
                 emailLoadingSpinner.style.display = 'none';
                 emailCheckMark.style.display = 'inline-block';
