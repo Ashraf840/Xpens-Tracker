@@ -86,6 +86,7 @@ def userRegistration(request):
     }
     return render(request, 'authentication/register.html', context)
 
+
 # Redirected link to the login page after account activation
 class VerificationView(View):
     def get(self, request, uidb64, token):
