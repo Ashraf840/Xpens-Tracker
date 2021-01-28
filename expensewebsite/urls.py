@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include( ('expensesapp.urls', 'app_name'), namespace='expensesapp' )),
     path('authentication/', include( ('authentication.urls', 'app_name'), namespace='authapp' )),
+    path('settings/', include( ('userpreferences.urls', 'app_name'), namespace='settingsapp' )),
 ]
