@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+
+{% block content %}
+
+    <h3 class="mt-4">Preferred Currency:
+        &nbsp; 
+        <span>
+            {% if user_preferences.currency %}
+                {{ user_preferences.currency }}
+            {% endif %}
+        </span>
+    </h3>
+
+    <br/>
+    <form action="{% url 'userpreferencesApp:settings' %}" method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+            <select name="currency" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                {% if user_preferences.currency %}
+                    <option name="currency" value="{{ user_preferences.currency }}" selected> {{ user_preferences.currency }} </option>
+                {% endif %}
+                
+                
+                {% for currency in currencies %}
+                    <option name="currency" value="{{ currency.name }} - {{ currency.value }}"> 
+                        {{ currency.name }} - {{ currency.value }} 
+                    </option>
+                {% endfor %}
+            </select>
+            <input class="btn btn-outline-secondary" type="submit" value="Save" />
+        </div>
+    </form>
+
+{% endblock %}
