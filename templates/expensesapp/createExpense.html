@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+
+{% block stylesheet %}
+<style>
+
+    #breadAnchor1, #breadAnchor2, #breadAnchor3{
+        text-decoration: none;
+        color: black;
+        transition: .1s ease-in;
+    }
+    #breadAnchor1:hover, #breadAnchor2:hover{
+        text-decoration: underline;
+        color: black;
+        font-weight: 700;
+    }
+
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+    <h1>New Expense</h1>
+
+    <div class="row d-flex align-items-center">
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb" class="bg-light mt-3 rounded-3">
+                <ol class="breadcrumb p-3">
+                  <li class="breadcrumb-item"><a id="breadAnchor1" href="{% url 'expensesApp:home' %}">Dashboard</a></li>
+                  <li class="breadcrumb-item" aria-current="page"><a id="breadAnchor2" href="{% url 'expensesApp:addExpense' %}">My Expenses List</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor3" href="{% url 'expensesApp:createNewExpense' %}">Add Expense</a></li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-2 d-flex justify-content-end">
+            <a class="btn btn-primary me-5" href="{% url 'expensesApp:addExpense' %}">Go Back</a>
+        </div>
+    </div>
+
+    <div class="container" style="padding-bottom: 50px;">
+        <div class="row d-flex justify-content-start mt-4">
+            <div class="col-md-9 p-0">
+                <div class="card p-0">
+                    <h5 class="card-header width-100">Add Expense</h5>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Amount</label>
+                                <input type="number" class="form-control" id="amount" name="amount"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select class="form-control" id="category" name="category">
+                                    {% for category in categories %}
+                                        <option value="{{ category }}"> {{ category }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea type="text" class="form-control" id="description" name="description">{{ values.description }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expenseDate" class="form-label">Date of Expense</label>
+                                <input type="date" class="form-control" id="expenseDate" name="expenseDate" aria-describedby="dateHelp" value="{{ values.expenseDate }}"/>
+                                <div id="dateHelp" class="form-text">If no date is selected, today will be selected by default</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+{% endblock %}
