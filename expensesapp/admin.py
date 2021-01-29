@@ -9,8 +9,9 @@ class ExpenseAdmin(admin.ModelAdmin):
     list_per_page = 8
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name']
-    search_fields = ['name']
+    list_display = ['name', 'categorytype', 'owner']
+    list_filter = ['categorytype']
+    search_fields = ['name', 'categorytype']
     list_per_page = 8
 
 

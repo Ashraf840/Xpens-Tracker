@@ -17,7 +17,12 @@ class Expense(models.Model):
         return '%s -- %s -- %s' % (self.owner, self.amount, self.date)
 
 class Category(models.Model):
+    CATEGORY_TYPES = [ ('Unknown', 'Unknown'), ('Income', 'Income'), ('Expense', 'Expense'), ]
+
     name = models.CharField(max_length=255)
+    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, default=None, null=True)
+    categorytype = models.CharField(max_length=10, choices=CATEGORY_TYPES, default='Unknown')
+
 
     class Meta():
         verbose_name_plural = "Category"

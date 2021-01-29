@@ -26,20 +26,55 @@
 
 {% block content %}
 
-    <h1>My Expenses List</h1>
+    <h1>Expenses List</h1>
 
     <div class="row d-flex align-items-center">
         <div class="col-md-10">
             <nav aria-label="breadcrumb" class="bg-light mt-3 rounded-3">
                 <ol class="breadcrumb p-3">
                   <li class="breadcrumb-item"><a id="breadAnchor1" href="{% url 'expensesApp:home' %}">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor2" href="{% url 'expensesApp:addExpense' %}">My Expenses List</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor2" href="{% url 'expensesApp:addExpense' %}">Expenses List</a></li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-2 d-flex justify-content-end">
             <a class="btn btn-primary me-5" href="{% url 'expensesApp:createNewExpense' %}">Add Expense</a>
+        </div>
+    </div>
+
+    <div class="container" style="padding-bottom: 50px;">
+        <div class="row d-flex justify-content-start mt-4">
+            <h4 style="margin-left:-10px">All Expense List</h4>
+            
+            {% if user.is_superuser %}
+                <h5 class="text-danger">Only Admin (Superuser) can see this</h5>
+                <strong class="text-danger">Will be used to add category btn functionality</strong>
+            {% endif %}
+
+            <!-- Expense table -->
+            <table class="table table-hover mt-4">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for expenses in expenseList %}
+                  <tr>
+                    <td> {{ forloop.counter }} </td>
+                    <td> {{ expenses.amount }} </td>
+                    <td> {{ expenses.category }} </td>
+                    <td> {{ expenses.description }} </td>
+                    <td> {{ expenses.date | date:'d-m-Y' }} </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
         </div>
     </div>
 
