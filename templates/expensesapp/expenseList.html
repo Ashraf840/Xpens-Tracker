@@ -19,6 +19,10 @@
         font-weight: 700;
     }
 
+    .fntawesomeIcon{
+        font-size: 20px;
+    }
+
 </style>
 {% endblock %}
 
@@ -61,6 +65,7 @@
                     <th scope="col">Category</th>
                     <th scope="col">Description</th>
                     <th scope="col">Date</th>
+                    <th scope="col" class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,10 +76,24 @@
                     <td> {{ expenses.category }} </td>
                     <td> {{ expenses.description }} </td>
                     <td> {{ expenses.date | date:'d-m-Y' }} </td>
+                    <td>
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                <span class="fntawesomeIcon" style="float:right; margin-right:-5px;">
+                                    <a href="#" style="color:black;"><i class="fa fa-edit"></i></a>
+                                </span>
+                            </div>
+                            <div class="col">
+                                <span class="fntawesomeIcon" style="float:left; margin-left:5px;">
+                                    <a href="#" style="color:rgb(182, 21, 21);"><i class="fa fa-trash"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
                   </tr>
                   {% endfor %}
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
 

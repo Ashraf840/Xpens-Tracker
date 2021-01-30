@@ -19,6 +19,10 @@
         font-weight: 700;
     }
 
+    .fntawesomeIcon{
+        font-size: 20px;
+    }
+
 </style>
 {% endblock %}
 
@@ -33,13 +37,91 @@
             <nav aria-label="breadcrumb" class="bg-light mt-3 rounded-3">
                 <ol class="breadcrumb p-3">
                   <li class="breadcrumb-item"><a id="breadAnchor1" href="{% url 'expensesApp:home' %}">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor2" href="{% url 'expensesApp:addExpense' %}">My Expenses List</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor2" href="{% url 'expensesApp:categorylist' %}">Category List</a></li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-2 d-flex justify-content-end">
-            <a class="btn btn-primary me-5" href="{% url 'expensesApp:createNewExpense' %}">Add Expense</a>
+            <a class="btn btn-primary me-5" href="{% url 'expensesApp:createNewCategory' %}">Add Category</a>
+        </div>
+    </div>
+
+    <div class="container" style="padding-bottom:50px;">
+        <div class="row d-flex justify-content-center mt-4">
+            
+            <div class="col-md bg-light px-5" style="margin-top:20px;">
+                <h2>Category Type: Income</h2>
+                <!-- Category table - Income -->
+                <table class="table table-hover mt-4">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Category</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for categoriesIncm in categoryList_income %}
+                    <tr>
+                        <td> {{ forloop.counter }} </td>
+                        <td> {{ categoriesIncm.name }} </td>
+                        <td>
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <span class="fntawesomeIcon" style="float:right; margin-right:-5px;">
+                                        <a href="#" style="color:black;"><i class="fa fa-edit"></i></a>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <span class="fntawesomeIcon" style="float:left; margin-left:5px;">
+                                        <a href="#" style="color:rgb(182, 21, 21);"><i class="fa fa-trash"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md bg-light px-5" style="margin-top:20px;">
+                <h2>Category Type: Expense</h2>
+
+                <!-- Category table - Income -->
+                <table class="table table-hover mt-4">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Category</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for categoriesExpns in categoryList_expense %}
+                    <tr>
+                        <td> {{ forloop.counter }} </td>
+                        <td> {{ categoriesExpns.name }} </td>
+                        <td>
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <span class="fntawesomeIcon" style="float:right; margin-right:-5px;">
+                                        <a href="#" style="color:black;"><i class="fa fa-edit"></i></a>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <span class="fntawesomeIcon" style="float:left; margin-left:5px;">
+                                        <a href="#" style="color:rgb(182, 21, 21);"><i class="fa fa-trash"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 

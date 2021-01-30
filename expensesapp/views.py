@@ -5,6 +5,7 @@ from django.contrib import messages
 
 # Create your views here.
 
+# This is the MAIN DASHBOARD
 @login_required(login_url='authenticationApp:login')
 def index(request):
     context = {
@@ -17,17 +18,11 @@ def index(request):
 def expenseList(request):
     expenselist = Expense.objects.filter(owner=request.user)
     user = request.user
-    z = [ 1, 2, 3, 4, 5]
-    # z = 0
-    # x = 1
-    # import pdb
-    # pdb.set_trace()
+
     context = {
         'title':"Expense List",
         'expenseList':expenselist,
         'user':user,
-        'z':z,
-        # 'x':x,
     }
     return render(request, 'expensesapp/expenseList.html', context)
 
@@ -53,10 +48,54 @@ def addExpense(request):
             messages.error(request, 'Amount is required')
             return render(request, 'expensesapp/createExpense.html', context)
         else:
-            # create category row for the particular user 
             Expense.objects.create(amount=amount, date=expenseDate, description=description, owner=user, category=category)
             messages.info(request, 'New expense added successfully')
             return redirect('expensesApp:createNewExpense')
 
 
     return render(request, 'expensesapp/createExpense.html', context)
+
+
+@login_required(login_url='authenticationApp:login')
+def categoryList(request):
+    user = request.user
+    categoryList_income = Category.objects.filter(owner=request.user, categorytype='Income')
+    categoryList_expense = Category.objects.filter(owner=request.user, categorytype='Expense')
+    context = {
+        'title':"Category List",
+        'user':user,
+        'categoryList_income':categoryList_income,
+        'categoryList_expense':categoryList_expense,
+    }
+    return render(request, 'expensesapp/categoryList.html', context)
+
+
+@login_required(login_url='authenticationApp:login')
+def addCategory(request):
+    cate_types = {
+        'Income':'Income',
+        'Expense':'Expense',
+    }
+
+    context = {
+        'title':"Add Category",
+        'cate_types':cate_types,
+    }
+
+    if request.method == 'POST':
+        CateName = request.POST['cateName']
+        CateType = request.POST['cateType']
+
+        if not CateName:
+            messages.error(request, 'Category name is required')
+            return render(request, 'expensesapp/createCategory.html', context)
+        else:
+            user = request.user
+            Category.objects.create(name=CateName, owner=user, categorytype=CateType)
+            messages.info(request, 'New category added successfully')
+            return redirect('expensesApp:createNewCategory')
+        # import pdb
+        # pdb.set_trace()
+
+    
+    return render(request, 'expensesapp/createCategory.html', context)
