@@ -4,7 +4,7 @@ from .models import Expense, Category
 
 # Register your models here.
 class ExpenseAdmin(admin.ModelAdmin):
-    list_display = ['owner', 'date', 'description', 'amount']
+    list_display = ['id', 'owner', 'date', 'description', 'amount']
     search_fields = ['owner', 'date', 'description']
     list_per_page = 8
 

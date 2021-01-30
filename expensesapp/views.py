@@ -57,6 +57,49 @@ def addExpense(request):
 
 
 @login_required(login_url='authenticationApp:login')
+def updateExpense(request, id):
+    user = request.user
+    categories = Category.objects.filter(categorytype='Expense', owner=user)
+    expenseItem = Expense.objects.get(pk=id)
+
+    dateFormat = "%Y-%m-%d"
+    expenseItemDateFomated = expenseItem.date.strftime(dateFormat)
+
+    context = {
+        'title':"Update Expense",
+        'categories':categories,
+        'expenseItem':expenseItem,
+        'expenseItemDateFomated':expenseItemDateFomated,
+    }
+
+    if request.method == 'POST':
+        amount = request.POST['amount']
+        category = request.POST['category']
+        description = request.POST['description']
+        expenseDate = request.POST['expenseDate']
+
+        if not amount:
+            messages.error(request, 'Amount is required')
+            return render(request, 'expensesapp/editExpense.html/', context)    # don't need to add id in the URL, the context is getting populated using 'amount', 'category', 'description', 'expenseDate' from the variables after POST req.
+        else:
+            # push update every objects of the 'Expense' django-model  (items)
+            expenseItem.amount = amount
+            expenseItem.date = expenseDate
+            expenseItem.description = description
+            expenseItem.owner = user
+            expenseItem.category = category
+
+            expenseItem.save()
+
+            # messages.info(request, 'Expense updated successfully: %s---%s---%s---%s---%s---Expense_ID: %s' % (amount, category, description, expenseDate, user, id))
+            # messages.info(request, 'Expense updated successfully: %s---%s---%s---%s---%s---Expense_ID: %s' % (amount, category, description, expenseDate, user, expenseItem.id))
+            messages.info(request, 'Expense updated successfully')
+            return redirect('expensesApp:addExpense')   # redirect to expense-list
+
+    return render(request, 'expensesapp/editExpense.html', context)
+
+
+@login_required(login_url='authenticationApp:login')
 def categoryList(request):
     user = request.user
     categoryList_income = Category.objects.filter(owner=request.user, categorytype='Income')
