@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+
+{% block stylesheet %}
+<style>
+
+    #breadAnchor1, #breadAnchor2{
+        text-decoration: none;
+        color: black;
+        transition: .1s ease-in;
+    }
+    #breadAnchor1:hover{
+        text-decoration: underline;
+        color: black;
+        font-weight: 700;
+    }
+
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+    <h1>Category List</h1>
+
+    <div class="row d-flex align-items-center">
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb" class="bg-light mt-3 rounded-3">
+                <ol class="breadcrumb p-3">
+                  <li class="breadcrumb-item"><a id="breadAnchor1" href="{% url 'expensesApp:home' %}">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor2" href="{% url 'expensesApp:addExpense' %}">My Expenses List</a></li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-2 d-flex justify-content-end">
+            <a class="btn btn-primary me-5" href="{% url 'expensesApp:createNewExpense' %}">Add Expense</a>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -15,15 +15,27 @@ def index(request):
 
 @login_required(login_url='authenticationApp:login')
 def expenseList(request):
+    expenselist = Expense.objects.filter(owner=request.user)
+    user = request.user
+    z = [ 1, 2, 3, 4, 5]
+    # z = 0
+    # x = 1
+    # import pdb
+    # pdb.set_trace()
     context = {
         'title':"Expense List",
+        'expenseList':expenselist,
+        'user':user,
+        'z':z,
+        # 'x':x,
     }
     return render(request, 'expensesapp/expenseList.html', context)
 
 
 @login_required(login_url='authenticationApp:login')
 def addExpense(request):
-    categories = Category.objects.all()
+    user = request.user
+    categories = Category.objects.filter(categorytype='Expense', owner=user)
     context = {
         'title':"Add Expense",
         'categories':categories,
@@ -41,6 +53,7 @@ def addExpense(request):
             messages.error(request, 'Amount is required')
             return render(request, 'expensesapp/createExpense.html', context)
         else:
+            # create category row for the particular user 
             Expense.objects.create(amount=amount, date=expenseDate, description=description, owner=user, category=category)
             messages.info(request, 'New expense added successfully')
             return redirect('expensesApp:createNewExpense')
