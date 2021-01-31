@@ -79,7 +79,43 @@
                     {% endfor %}
                     </tbody>
                 </table>
+
+                <!-- paginator -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        {% if categoryList_income.has_other_pages %}
+                        <nav aria-label="Page navigation" class="mt-3">
+                            <ul class="pagination justify-content-center pagination-sm">
+                                {% if categoryList_income.has_previous %}
+                                <li class="page-item"><a class="page-link fw-bold" href="?page={{ categoryList_income.previous_page_number }}" style="background-color: #313c44; color: #f3f3f3; font-size:16px;">&laquo; &nbsp;&nbsp;</a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a class="page-link text-muted" href="#" style="background-color: #f3f3f3; font-size:16px;">&laquo; &nbsp;&nbsp;</a></li>
+                                {% endif %}
+
+                                {% for pg in categoryList_income.paginator.page_range %}
+                                    {% if pg <= categoryList_income.number|add:1 and pg >= categoryList_income.number|add:-1 %}
+                                        {% if categoryList_income.number == pg %}
+                                            <li class="page-item active"><a class="page-link fw-bold" href="#" style="background-color:#f3f3f3; color:#313c44; font-size:15px; border: 1.5px solid #313c44"> {{forloop.counter}} </a></li>
+                                        {% else %}
+                                            <li class="page-item"><a class="page-link text-muted fw-bold" href="?page={{forloop.counter}}" style="background-color:#f3f3f3; color:#313c44;"> {{forloop.counter}} </a></li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if categoryList_income.has_next %}
+                                    <li class="page-item"><a class="page-link fw-bold" href="?page={{ categoryList_income.next_page_number }}" style="background-color: #313c44; color: #f3f3f3; font-size:16px;">&nbsp;&nbsp; &raquo;</a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link text-muted fw-bold" href="#" style="background-color: #f3f3f3; font-size:16px;">&nbsp;&nbsp; &raquo;</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    </div>
+                </div>
+
             </div>
+
+
             <div class="col-md bg-light px-3" style="margin-top:20px; margin-left:5px;">
                 <h2 class="mt-3">Category Type: Expense</h2>
                 <!-- Category table - Income -->
@@ -109,6 +145,40 @@
                     {% endfor %}
                     </tbody>
                 </table>
+
+                <!-- paginator -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        {% if categoryList_expense.has_other_pages %}
+                        <nav aria-label="Page navigation" class="mt-3">
+                            <ul class="pagination justify-content-center pagination-sm">
+                                {% if categoryList_expense.has_previous %}
+                                <li class="page-item"><a class="page-link fw-bold" href="?page={{ categoryList_expense.previous_page_number }}" style="background-color: #313c44; color: #f3f3f3; font-size:16px;">&laquo; &nbsp;&nbsp;</a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a class="page-link text-muted" href="#" style="background-color: #f3f3f3; font-size:16px;">&laquo; &nbsp;&nbsp;</a></li>
+                                {% endif %}
+
+                                {% for pg in categoryList_expense.paginator.page_range %}
+                                    {% if pg <= categoryList_expense.number|add:1 and pg >= categoryList_expense.number|add:-1 %}
+                                        {% if categoryList_expense.number == pg %}
+                                            <li class="page-item active"><a class="page-link fw-bold" href="#" style="background-color:#f3f3f3; color:#313c44; font-size:15px; border: 1.5px solid #313c44"> {{forloop.counter}} </a></li>
+                                        {% else %}
+                                            <li class="page-item"><a class="page-link text-muted fw-bold" href="?page={{forloop.counter}}" style="background-color:#f3f3f3; color:#313c44;"> {{forloop.counter}} </a></li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if categoryList_expense.has_next %}
+                                    <li class="page-item"><a class="page-link fw-bold" href="?page={{ categoryList_expense.next_page_number }}" style="background-color: #313c44; color: #f3f3f3; font-size:16px;">&nbsp;&nbsp; &raquo;</a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link text-muted fw-bold" href="#" style="background-color: #f3f3f3; font-size:16px;">&nbsp;&nbsp; &raquo;</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    </div>
+                </div>
+
             </div>
 
         </div>
