@@ -54,7 +54,7 @@
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Amount</label>
-                                <input type="number" class="form-control" id="amount" name="amount"/>
+                                <input type="number" class="form-control" id="amount" name="amount" value="{{ values.amount }}"/>
                             </div>
                             <div class="mb-3">
                                 <label for="category" class="form-label">Category</label>
@@ -71,7 +71,6 @@
                             <div class="mb-3">
                                 <label for="expenseDate" class="form-label">Date of Expense</label>
                                 <input type="date" class="form-control" id="expenseDate" name="expenseDate" aria-describedby="dateHelp" value="{{ values.expenseDate }}"/>
-                                <div id="dateHelp" class="form-text">If no date is selected, today will be selected by default</div>
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100 mt-3">Submit</button>
