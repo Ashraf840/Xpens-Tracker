@@ -29,7 +29,7 @@
     <h1>Update Expense</h1>
 
     <div class="row d-flex align-items-center">
-        <div class="col-md-10">
+        <div class="col-md-9">
             <nav aria-label="breadcrumb" class="bg-light mt-3 rounded-3">
                 <ol class="breadcrumb p-3">
                   <li class="breadcrumb-item"><a id="breadAnchor1" href="{% url 'expensesApp:home' %}">Dashboard</a></li>
@@ -39,7 +39,8 @@
             </nav>
         </div>
 
-        <div class="col-md-2 d-flex justify-content-end">
+        <div class="col-md-3 d-flex justify-content-end">
+            <a class="btn btn-danger me-5" href="{% url 'expensesApp:addExpense' %}" data-bs-toggle="modal" data-bs-target="#expenseDelModal">Delete</a>
             <a class="btn btn-primary me-5" href="{% url 'expensesApp:addExpense' %}">Go Back</a>
         </div>
     </div>
@@ -87,5 +88,7 @@
             <div class="col-md-3"></div>
         </div>
     </div>
+
+    {% include 'includes/modals/modalExpenseDel.html' %}
 
 {% endblock %}

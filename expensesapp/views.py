@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Category, Expense
 from django.contrib import messages
+from django.utils.timezone import now
 
 # Create your views here.
 
@@ -31,6 +32,7 @@ def expenseList(request):
 def addExpense(request):
     user = request.user
     categories = Category.objects.filter(categorytype='Expense', owner=user)
+
     context = {
         'title':"Add Expense",
         'categories':categories,
@@ -47,10 +49,14 @@ def addExpense(request):
         if not amount:
             messages.error(request, 'Amount is required')
             return render(request, 'expensesapp/createExpense.html', context)
-        else:
-            Expense.objects.create(amount=amount, date=expenseDate, description=description, owner=user, category=category)
-            messages.info(request, 'New expense added successfully')
-            return redirect('expensesApp:createNewExpense')
+        
+        if not expenseDate:
+            messages.error(request, 'Expense date is required')
+            return render(request, 'expensesapp/createExpense.html', context)
+
+        Expense.objects.create(amount=amount, date=expenseDate, description=description, owner=user, category=category)
+        messages.info(request, 'New expense added successfully')
+        return redirect('expensesApp:createNewExpense')
 
 
     return render(request, 'expensesapp/createExpense.html', context)
@@ -97,6 +103,17 @@ def updateExpense(request, id):
             return redirect('expensesApp:addExpense')   # redirect to expense-list
 
     return render(request, 'expensesapp/editExpense.html', context)
+
+
+
+@login_required(login_url='authenticationApp:login')
+def deleteExpense(request, id):
+    expenseData = Expense.objects.get(pk=id)
+    expenseData.delete()
+
+    messages.info(request, 'Expense deleted successfully: %s' % (expenseData.category))
+    return redirect('expensesApp:addExpense')
+
 
 
 @login_required(login_url='authenticationApp:login')
