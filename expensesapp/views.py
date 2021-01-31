@@ -86,7 +86,7 @@ def updateExpense(request, id):
 
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'expensesapp/editExpense.html/', context)    # don't need to add id in the URL, the context is getting populated using 'amount', 'category', 'description', 'expenseDate' from the variables after POST req.
+            return render(request, 'expensesapp/editExpense.html/', context)    # don't need to add 'id' in the URL, the context is getting populated using 'amount', 'category', 'description', 'expenseDate' from the variables after POST req.
         else:
             # push update every objects of the 'Expense' django-model  (items)
             expenseItem.amount = amount
@@ -154,8 +154,41 @@ def addCategory(request):
             Category.objects.create(name=CateName, owner=user, categorytype=CateType)
             messages.info(request, 'New category added successfully')
             return redirect('expensesApp:createNewCategory')
-        # import pdb
-        # pdb.set_trace()
-
     
     return render(request, 'expensesapp/createCategory.html', context)
+
+
+
+@login_required(login_url='authenticationApp:login')
+def updateCategory(request, id):
+    user = request.user
+    category = Category.objects.get(pk=id)
+    cate_types = {
+        'Income':'Income',
+        'Expense':'Expense',
+    }
+
+    context = {
+        'title':"Update Category",
+        'category':category,
+        'cate_types':cate_types,
+    }
+
+    if request.method == 'POST':
+        cateName = request.POST['cateName']
+        cateType = request.POST['cateType']
+
+        if not cateName:
+            messages.error(request, 'Category name is required')
+            return render(request, 'expensesapp/editCategory.html/', context)    # don't need to add 'id' in the URL, the context is getting populated using 'cateName', 'cateType' from the variables after POST req.
+        else:
+            # push update every objects of the 'Category' django-model  (items)
+            category.name = cateName
+            category.categorytype = cateType
+
+            category.save()
+
+            messages.info(request, 'Category updated successfully')
+            return redirect('expensesApp:categorylist')   # redirect to category-list
+
+    return render(request, 'expensesapp/editCategory.html', context)
