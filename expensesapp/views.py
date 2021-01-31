@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Category, Expense
 from django.contrib import messages
 from django.utils.timezone import now
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -17,8 +18,15 @@ def index(request):
 
 @login_required(login_url='authenticationApp:login')
 def expenseList(request):
-    expenselist = Expense.objects.filter(owner=request.user)
+    expenselist = Expense.objects.filter(owner=request.user).order_by('-id')
     user = request.user
+
+    # expenselistNum = len(expenselist)
+
+    expenselistPagination = expenselist
+    paginator = Paginator(expenselistPagination, 5)
+    page = request.GET.get('page')
+    expenselist = paginator.get_page(page)
 
     context = {
         'title':"Expense List",
@@ -119,8 +127,24 @@ def deleteExpense(request, id):
 @login_required(login_url='authenticationApp:login')
 def categoryList(request):
     user = request.user
-    categoryList_income = Category.objects.filter(owner=request.user, categorytype='Income')
-    categoryList_expense = Category.objects.filter(owner=request.user, categorytype='Expense')
+    categoryList_income = Category.objects.filter(owner=request.user, categorytype='Income').order_by('-id')
+    categoryList_expense = Category.objects.filter(owner=request.user, categorytype='Expense').order_by('-id')
+
+    # categoryList_incomeNum = len(categoryList_income)
+    # categoryList_expenseNum = len(categoryList_expense)
+
+    # Category: Income (Paginator)
+    categoryList_incomePagination = categoryList_income
+    paginatorIncomeCate = Paginator(categoryList_incomePagination, 5)
+    pageIncomeCate = request.GET.get('page')
+    categoryList_income = paginatorIncomeCate.get_page(pageIncomeCate)
+    
+    # Category: Expense (Paginator)
+    categoryList_expensePagination = categoryList_expense
+    paginatorExpenseCate = Paginator(categoryList_expensePagination, 5)
+    pageExpenseCate = request.GET.get('page')
+    categoryList_expense = paginatorExpenseCate.get_page(pageExpenseCate)
+
     context = {
         'title':"Category List",
         'user':user,
