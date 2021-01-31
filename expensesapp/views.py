@@ -192,3 +192,12 @@ def updateCategory(request, id):
             return redirect('expensesApp:categorylist')   # redirect to category-list
 
     return render(request, 'expensesapp/editCategory.html', context)
+
+
+@login_required(login_url='authenticationApp:login')
+def deleteCategory(request, id):
+    categoryData = Category.objects.get(pk=id)
+    categoryData.delete()
+
+    messages.info(request, 'Expense deleted successfully: %s' % (categoryData.name))
+    return redirect('expensesApp:categorylist')
