@@ -39,8 +39,8 @@
             </nav>
         </div>
 
-        <div class="col-md-2 d-flex justify-content-end">
-            <a class="btn btn-primary me-5" href="{% url 'expensesApp:addExpense' %}">Go Back</a>
+        <div class="col-md-2">
+            <a class="btn me-5" href="{% url 'expensesApp:addExpense' %}" style="background-color: #313c44; color: #f3f3f3; width:150px; position:relative; right:-20px;">Go Back</a>
         </div>
     </div>
 
@@ -73,7 +73,7 @@
                                 <input type="date" class="form-control" id="expenseDate" name="expenseDate" aria-describedby="dateHelp" value="{{ values.expenseDate }}"/>
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100 mt-3">Submit</button>
+                            <button type="submit" class="btn w-100 mt-3" style="background-color: #313c44; color: #f3f3f3;">Save & Continue</button>
                         </form>
                     </div>
                 </div>

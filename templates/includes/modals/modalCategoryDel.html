@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<!-- Category Data Delete Modal -->
+<div class="modal fade" id="categoryDelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="categoryDelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="categoryDelModalLabel">Delete?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete?
+            <br/>
+            Category: <b> {{ category.name }} </b>
+            <br/>
+            Type: <b> {{ category.categorytype }} </b>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <a class="btn btn-danger" href="{% url 'expensesApp:deleteCategory' category.id %}">Delete</a>
+        </div>
+        </div>
+    </div>
+</div>

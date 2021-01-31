@@ -39,8 +39,9 @@
             </nav>
         </div>
 
-        <div class="col-md-2 d-flex justify-content-end">
-            <a class="btn btn-primary me-5" href="{% url 'expensesApp:categorylist' %}">Go Back</a>
+        <div class="col-md-2 d-flex justify-content-between">
+            <a class="btn btn-danger" href="" data-bs-toggle="modal" data-bs-target="#categoryDelModal" style="width:80px;">Delete</a>
+            <a class="btn" href="{% url 'expensesApp:categorylist' %}" style="background-color: #313c44; color: #f3f3f3; width:100px;">Go Back</a>
         </div>
     </div>
 
@@ -69,7 +70,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 mt-3">Update</button>
+                            <button type="submit" class="btn w-100 mt-3" style="background-color: #313c44; color: #f3f3f3;">Update</button>
                         </form>
                     </div>
                 </div>
@@ -77,5 +78,7 @@
             <div class="col-md-3"></div>
         </div>
     </div>
+
+    {% include 'includes/modals/modalCategoryDel.html' %}
 
 {% endblock %}
