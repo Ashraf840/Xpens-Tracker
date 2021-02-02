@@ -4,6 +4,12 @@ from .models import Category, Expense
 from django.contrib import messages
 from django.utils.timezone import now
 from django.core.paginator import Paginator
+import json
+from django.http import JsonResponse
+from django.db.models import Q      # for making complex search queries
+from userpreferences.models import UserPreference
+
+
 
 # Create your views here.
 
@@ -21,8 +27,10 @@ def expenseList(request):
     expenselist = Expense.objects.filter(owner=request.user).order_by('-id')
     user = request.user
 
-    # expenselistNum = len(expenselist)
+    # Fetch & store the currency preferences set by the particular user
+    currencyPref = UserPreference.objects.get(user=user).currency
 
+    # Pagination
     expenselistPagination = expenselist
     paginator = Paginator(expenselistPagination, 5)
     page = request.GET.get('page')
@@ -32,6 +40,7 @@ def expenseList(request):
         'title':"Expense List",
         'expenseList':expenselist,
         'user':user,
+        'currencyPref':currencyPref,
     }
     return render(request, 'expensesapp/expenseList.html', context)
 
@@ -68,6 +77,25 @@ def addExpense(request):
 
 
     return render(request, 'expensesapp/createExpense.html', context)
+
+
+def search_expenses(request):
+    if request.method == 'POST':
+        user = request.user
+        
+        # the 'searchText' is gotten from the (body: JSON.stringify({ 'searchText':searchValue, }),) of the fetch method of the usernameInput's eventListener inside the 'searchExpense.js'
+        search_str = json.loads(request.body).get('searchText')
+
+        expenses = Expense.objects.filter( 
+            Q(amount__istartswith=search_str, owner=user) | 
+            Q(date__istartswith=search_str, owner=user) | 
+            Q(description__icontains=search_str, owner=user) | 
+            Q(category__istartswith=search_str, owner=user) 
+            )
+
+        data = expenses.values()
+
+        return JsonResponse(list(data), safe=False)
 
 
 @login_required(login_url='authenticationApp:login')
@@ -129,9 +157,6 @@ def categoryList(request):
     user = request.user
     categoryList_income = Category.objects.filter(owner=request.user, categorytype='Income').order_by('-id')
     categoryList_expense = Category.objects.filter(owner=request.user, categorytype='Expense').order_by('-id')
-
-    # categoryList_incomeNum = len(categoryList_income)
-    # categoryList_expenseNum = len(categoryList_expense)
 
     # Category: Income (Paginator)
     categoryList_incomePagination = categoryList_income

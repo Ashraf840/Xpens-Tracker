@@ -120,6 +120,7 @@ def usernameValidation(request):
         # return JsonResponse({'username':username})        # displays the inserted 'username' value for testing purpose
 
         # Check if username contains alpha-numeric character
+        # NB: The 'username' came from ('body: JSON.stringify({ 'username':userInput, }),') from the fetch method
         if not str(username).isalnum():
             return JsonResponse({
                 'username_error':'Username should only contain alpha-numeric characters!',
