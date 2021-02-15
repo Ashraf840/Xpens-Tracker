@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'crispy_forms',
     'userpreferences.apps.UserpreferencesConfig',
+    'incomeapp.apps.IncomeappConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
