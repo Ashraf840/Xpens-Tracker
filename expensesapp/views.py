@@ -8,6 +8,7 @@ import json
 from django.http import JsonResponse
 from django.db.models import Q      # for making complex search queries
 from userpreferences.models import UserPreference
+import pdb
 
 
 
@@ -27,8 +28,11 @@ def expenseList(request):
     expenselist = Expense.objects.filter(owner=request.user).order_by('-id')
     user = request.user
 
-    # Fetch & store the currency preferences set by the particular user
-    currencyPref = UserPreference.objects.get(user=user).currency
+    # Fetch & store the currency preferences set by the particular user. Put inside try/except as some user might go to the expense-list page before selecting the preferred currency.
+    try:
+        currencyPref = UserPreference.objects.get(user=user).currency
+    except UserPreference.DoesNotExist:
+        currencyPref = 'Not Selected'
 
     # Pagination
     expenselistPagination = expenselist
@@ -155,6 +159,7 @@ def deleteExpense(request, id):
 @login_required(login_url='authenticationApp:login')
 def categoryList(request):
     user = request.user
+    # pdb.set_trace()
     categoryList_income = Category.objects.filter(owner=request.user, categorytype='Income').order_by('-id')
     categoryList_expense = Category.objects.filter(owner=request.user, categorytype='Expense').order_by('-id')
 
