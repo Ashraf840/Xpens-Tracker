@@ -34,24 +34,25 @@
 
     <h1>Income List</h1>
 
+    <!-- Breadcrumb -->
     <div class="row d-flex align-items-center">
         <div class="col-md-10">
             <nav aria-label="breadcrumb" class="bg-light mt-3 rounded-3">
                 <ol class="breadcrumb p-3">
                   <li class="breadcrumb-item"><a id="breadAnchor1" href="{% url 'expensesApp:home' %}">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor2" href="{% url 'incomeapp:incomeList' %}">Income List</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor2" href="{% url 'incomeApp:incomeList' %}">Income List</a></li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-2">
-            <a class="btn me-5" href="" style="background-color: #313c44; color: #f3f3f3; width:150px; position:relative; right:-20px;">Add Income</a>
+            <a class="btn me-5" href="{% url 'incomeApp:createNewIncome' %}" style="background-color: #313c44; color: #f3f3f3; width:150px; position:relative; right:-20px;">Add Income</a>
         </div>
     </div>
 
     <div class="container" style="padding-bottom: 50px;">
         <div class="row d-flex justify-content-start mt-4">
-            <h4 style="margin-left:-10px">All Expense List</h4>
+            <h4 style="margin-left:-10px">All Income List</h4>
 
             <!-- Search Box (Disabled) -->
             <div class="row">
@@ -94,7 +95,7 @@
                             <div class="row">
                                 <div class="col">
                                     <span class="fntawesomeIcon" style="position:relative; left:45px;">
-                                        <a href="" style="color:black;"><i class="fa fa-edit"></i></a>
+                                        <a href="{% url 'incomeApp:updateIncome' income.id %}" style="color:black;"><i class="fa fa-edit"></i></a>
                                     </span>
                                 </div>
                             </div>

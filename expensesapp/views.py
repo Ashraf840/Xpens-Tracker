@@ -54,6 +54,7 @@ def addExpense(request):
     user = request.user
     categories = Category.objects.filter(categorytype='Expense', owner=user)
 
+    # This context is placed at the beginning, because the specified 'categories' are passed to the template.
     context = {
         'title':"Add Expense",
         'categories':categories,
@@ -65,7 +66,7 @@ def addExpense(request):
         category = request.POST['category']
         description = request.POST['description']
         expenseDate = request.POST['expenseDate']
-        user = request.user
+        # user = request.user
 
         if not amount:
             messages.error(request, 'Amount is required')
@@ -151,7 +152,7 @@ def deleteExpense(request, id):
     expenseData = Expense.objects.get(pk=id)
     expenseData.delete()
 
-    messages.info(request, 'Expense deleted successfully: %s' % (expenseData.category))
+    messages.info(request, 'Expense data deleted successfully: %s' % (expenseData.category))
     return redirect('expensesApp:addExpense')
 
 
