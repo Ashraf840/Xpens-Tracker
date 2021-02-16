@@ -26,22 +26,21 @@
 
 {% block content %}
 
-    <h1>Update Expense</h1>
+    <h1>New Income</h1>
 
     <div class="row d-flex align-items-center">
         <div class="col-md-10">
             <nav aria-label="breadcrumb" class="bg-light mt-3 rounded-3">
                 <ol class="breadcrumb p-3">
                   <li class="breadcrumb-item"><a id="breadAnchor1" href="{% url 'expensesApp:home' %}">Dashboard</a></li>
-                  <li class="breadcrumb-item" aria-current="page"><a id="breadAnchor2" href="{% url 'expensesApp:addExpense' %}">Expenses List</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor3" href="">Update Expense</a></li>
+                  <li class="breadcrumb-item" aria-current="page"><a id="breadAnchor2" href="{% url 'incomeApp:incomeList' %}">Income List</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><a id="breadAnchor3" href="{% url 'incomeApp:createNewIncome' %}">New Income</a></li>
                 </ol>
             </nav>
         </div>
 
-        <div class="col-md-2 d-flex justify-content-between">
-            <a class="btn btn-danger" href="" data-bs-toggle="modal" data-bs-target="#expenseDelModal" style="width:80px;">Delete</a>
-            <a class="btn" href="{% url 'expensesApp:addExpense' %}" style="background-color: #313c44; color: #f3f3f3; width:100px;">Go Back</a>
+        <div class="col-md-2">
+            <a class="btn me-5" href="{% url 'incomeApp:incomeList' %}" style="background-color: #313c44; color: #f3f3f3; width:150px; position:relative; right:-20px;">Go Back</a>
         </div>
     </div>
 
@@ -49,22 +48,17 @@
         <div class="row d-flex justify-content-start mt-4">
             <div class="col-md-9 p-0">
                 <div class="card p-0">
-                    <h5 class="card-header width-100">Update Expense</h5>
+                    <h5 class="card-header width-100">Add Income</h5>
                     <div class="card-body">
                         <form action="" method="POST">
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Amount</label>
-                                <input type="number" class="form-control" id="amount" name="amount" value="{{ expenseItem.amount }}" />
+                                <input type="number" class="form-control" id="amount" name="amount" value="{{ values.amount }}"/>
                             </div>
                             <div class="mb-3">
                                 <label for="category" class="form-label">Category</label>
                                 <select class="form-control" id="category" name="category">
-                                    <option value="{{ expenseItem.category }}"> 
-                                        {{ expenseItem.category }} 
-                                        &nbsp; ------------------------ &nbsp;
-                                        SELECTED 
-                                    </option>
                                     {% for category in categories %}
                                         <option value="{{ category }}"> {{ category }} </option>
                                     {% endfor %}
@@ -72,14 +66,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea type="text" class="form-control" id="description" name="description">{{ expenseItem.description }}</textarea>
+                                <textarea type="text" class="form-control" id="description" name="description">{{ values.description }}</textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="expenseDate" class="form-label">Date of Expense</label>
-                                <input type="date" class="form-control" id="expenseDate" name="expenseDate" aria-describedby="dateHelp" value="{{ expenseItemDateFomated }}"/>
+                                <label for="incomeDate" class="form-label">Date of Income</label>
+                                <input type="date" class="form-control" id="incomeDate" name="incomeDate" aria-describedby="dateHelp" value="{{ values.incomeDate }}"/>
                             </div>
 
-                            <button type="submit" class="btn w-100 mt-3" style="background-color: #313c44; color: #f3f3f3;">Update</button>
+                            <button type="submit" class="btn w-100 mt-3" style="background-color: #313c44; color: #f3f3f3;">Save & Continue</button>
                         </form>
                     </div>
                 </div>
@@ -87,7 +81,5 @@
             <div class="col-md-3"></div>
         </div>
     </div>
-
-    {% include 'includes/modals/modalExpenseDel.html' %}
 
 {% endblock %}
