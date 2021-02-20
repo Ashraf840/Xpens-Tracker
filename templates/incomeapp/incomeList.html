@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 
+<!-- Only this page has a dedicated base template ('incomeList_base.html'), 
+because that base template comprises of a separate header, and that header 
+has a separately dedicated search-bar, which is dedicated to this page only. -->
 
-{% extends 'base.html' %}
+{% extends 'personalized_base_templates\incomeList_base.html' %}
 {% load static %}
 
 {% block title %} {{ title }} {% endblock %}
@@ -107,6 +110,29 @@
             </div>
 
 
+            <!-- Income table > Search Result -->
+            <div id="table-output" style="display:none">
+                <table class="table table-hover mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Date</th>
+                            <th scope="col" class="text-center">Amount 
+                                <br/>
+                                ( {{ currencyPref }} )
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-output-body">
+                        <!-- Here data will dynamically be populated after getting searched -->
+                    </tbody>
+                </table>
+            </div>
+
+
+
             <!-- paginator -->
             <div id="pagination-container">      <!-- hide paginator div while searching/displaying search-results -->
                 <div class="row d-flex justify-content-center">
@@ -148,11 +174,14 @@
                 </div>
             </div>
 
-
-
-
-
         </div>
     </div>
+
+{% endblock %}
+
+
+{% block js %} 
+
+    <script src="{% static 'js/searchIncome.js' %}"></script>
 
 {% endblock %}

@@ -7,8 +7,8 @@ app_name = 'expensesApp'
 urlpatterns = [
     path('', views.index, name='home'),
     path('expense-list/', views.expenseList, name='addExpense'),
-    path('add-expense/', views.addExpense, name='createNewExpense'),
     path('search-expense/', csrf_exempt(views.search_expenses), name='search_expense'),
+    path('add-expense/', views.addExpense, name='createNewExpense'),
     path('update-expense/<int:id>/', views.updateExpense, name='updateExpense'),
     path('delete-expense/<int:id>/', views.deleteExpense, name='deleteExpense'),
     

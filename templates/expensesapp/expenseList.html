@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 
+<!-- Only this page has a dedicated base template ('expenseList_base.html'), 
+because that base template comprises of a separate header, and that header 
+has a separately dedicated search-bar, which is dedicated to this page only. -->
+
 {% extends 'personalized_base_templates\expenseList_base.html' %}
 {% load static %}
 
@@ -64,7 +68,7 @@
                 <div class="col-md-4">
                     <form method="POST">
                         <div class="form-group">
-                            <!-- added the id 'searchField' in the 'header_expenseList.html' in the headers folder -->
+                            <!-- added the id 'searchField' in the 'header_expenseList.html' in the 'includes/headers' folder -->
                             <input type="text" class="form-control" id="" placeholder="Search (Use the top search-box)" disabled>
                         </div>
                     </form>
@@ -173,6 +177,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 

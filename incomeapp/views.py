@@ -4,6 +4,9 @@ from .models import Income
 from expensesapp.models import Category
 from userpreferences.models import UserPreference
 from django.core.paginator import Paginator
+import json
+from django.http import JsonResponse
+from django.db.models import Q      # for making complex search queries
 from django.contrib import messages
 import pdb
 
@@ -36,6 +39,24 @@ def incomeList(request):
     }
     return render(request, 'incomeapp/incomeList.html', context)
 
+
+def search_income(request):
+    if request.method == 'POST':
+        user = request.user
+        
+        # the 'searchText' is gotten from the (body: JSON.stringify({ 'searchText':searchValue, }),) of the fetch method of the usernameInput's eventListener inside the 'searchIncome.js'
+        search_str = json.loads(request.body).get('searchText')
+
+        income = Income.objects.filter( 
+            Q(amount__istartswith=search_str, owner=user) | 
+            Q(date__istartswith=search_str, owner=user) | 
+            Q(description__icontains=search_str, owner=user) | 
+            Q(category__istartswith=search_str, owner=user) 
+            )
+
+        data = income.values()
+
+        return JsonResponse(list(data), safe=False)
 
 
 @login_required(login_url='authenticationApp:login')
